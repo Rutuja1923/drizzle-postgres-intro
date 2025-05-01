@@ -1,11 +1,10 @@
-import { boolean } from "drizzle-orm/gel-core";
 import * as p from "drizzle-orm/pg-core";
 
 export const genderEnum = p.pgEnum("gender_enum", ["male", "female", "other"]);
 export const roleEnum = p.pgEnum("role_enum", ["ADMIN", "USER"]);
 
 export const userTable = p.pgTable(
-  "user",
+  "users",
   {
     userId: p.uuid("user_id").primaryKey().defaultRandom(),
     firstName: p.varchar("first_name", { length: 255 }).notNull(),
