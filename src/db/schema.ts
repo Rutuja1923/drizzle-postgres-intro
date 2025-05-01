@@ -27,3 +27,15 @@ export const userPreferencesTable = p.pgTable("userPrefereces", {
     .references(() => userTable.userId)
     .notNull(),
 });
+
+export const postTable = p.pgTable("posts", {
+  postId: p.uuid("post_id").primaryKey().defaultRandom(),
+  title: p.varchar("title", { length: 255 }).notNull(),
+  averageRating: p.real("average_rating").notNull().default(0),
+  createdAt: p.timestamp("created_at").defaultNow().notNull(),
+  updatedAt: p.timestamp("updated_at").defaultNow().notNull(),
+  authorId: p
+    .uuid("author_id")
+    .references(() => userTable.userId)
+    .notNull(),
+});
