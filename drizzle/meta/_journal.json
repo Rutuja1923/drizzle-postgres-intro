@@ -8,6 +8,48 @@
       "when": 1746003860979,
       "tag": "0000_goofy_micromacro",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1746075320936,
+      "tag": "0001_add-new-columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1746075761996,
+      "tag": "0002_alter_table_add_constraints",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1746084056780,
+      "tag": "0003_special_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1746084411679,
+      "tag": "0004_blue_red_shift",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1746084527045,
+      "tag": "0005_add_column_gender_enum",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1746085530389,
+      "tag": "0006_alter_column_name",
+      "breakpoints": true
     }
   ]
 }
