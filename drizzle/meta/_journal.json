@@ -50,6 +50,34 @@
       "when": 1746085530389,
       "tag": "0006_alter_column_name",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1746109348027,
+      "tag": "0007_add_index_on_email",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1746110156293,
+      "tag": "0008_add_table_user_preferences",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1746110339897,
+      "tag": "0009_add_table_posts",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1746110424021,
+      "tag": "0010_rename_table_to_users",
+      "breakpoints": true
     }
   ]
 }
