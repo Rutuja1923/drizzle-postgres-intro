@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import * as p from "drizzle-orm/pg-core";
 
 export const genderEnum = p.pgEnum("gender_enum", ["male", "female", "other"]);
@@ -69,4 +70,53 @@ export const postCategoryTable = p.pgTable(
       }),
   },
   (table) => [p.primaryKey({ columns: [table.postId, table.categoryId] })]
+);
+
+//DRIZZLE-LEVEL RELATIONSHIP MAPPING
+
+export const userTableRelations = relations(userTable, ({ one, many }) => ({
+  preferences: one(userPreferencesTable, {
+    fields: [userTable.userId],
+    references: [userPreferencesTable.userRefId],
+  }),
+  posts: many(postTable),
+}));
+
+export const userPreferencesRelations = relations(
+  userPreferencesTable,
+  ({ one }) => ({
+    user: one(userTable, {
+      fields: [userPreferencesTable.userRefId],
+      references: [userTable.userId],
+    }),
+  })
+);
+
+export const postTableRelations = relations(postTable, ({ one, many }) => ({
+  author: one(userTable, {
+    fields: [postTable.authorId],
+    references: [userTable.userId],
+  }),
+  postCategories: many(postCategoryTable),
+}));
+
+export const categoriesTableRelations = relations(
+  categoriesTable,
+  ({ many }) => ({
+    postCategories: many(postCategoryTable),
+  })
+);
+
+export const postCategoryTableRelations = relations(
+  postCategoryTable,
+  ({ one }) => ({
+    post: one(postTable, {
+      fields: [postCategoryTable.postId],
+      references: [postTable.postId],
+    }),
+    category: one(categoriesTable, {
+      fields: [postCategoryTable.categoryId],
+      references: [categoriesTable.categoryId],
+    }),
+  })
 );
