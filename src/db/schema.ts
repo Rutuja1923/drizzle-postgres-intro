@@ -18,12 +18,15 @@ export const userTable = p.pgTable(
   (table) => [p.index("email_index").on(table.email)]
 );
 
-export const userPreferencesTable = p.pgTable("userPrefereces", {
+export const userPreferencesTable = p.pgTable("user_preferences", {
   userId: p.uuid("user_id").primaryKey().defaultRandom(),
   emailUpdates: p.boolean("email_updates").notNull().default(false),
   userRefId: p
     .uuid("user_ref_id")
-    .references(() => userTable.userId)
+    .references(() => userTable.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    })
     .notNull(),
 });
 
@@ -35,6 +38,35 @@ export const postTable = p.pgTable("posts", {
   updatedAt: p.timestamp("updated_at").defaultNow().notNull(),
   authorId: p
     .uuid("author_id")
-    .references(() => userTable.userId)
+    .references(() => userTable.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    })
     .notNull(),
 });
+
+export const categoriesTable = p.pgTable("categories", {
+  categoryId: p.uuid("category_id").primaryKey().defaultRandom(),
+  categotyName: p.varchar("category_name", { length: 255 }).notNull(),
+});
+
+export const postCategoryTable = p.pgTable(
+  "post_categories",
+  {
+    postId: p
+      .uuid("post_id")
+      .notNull()
+      .references(() => postTable.postId, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+    categoryId: p
+      .uuid("category_id")
+      .notNull()
+      .references(() => categoriesTable.categoryId, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+  },
+  (table) => [p.primaryKey({ columns: [table.postId, table.categoryId] })]
+);
