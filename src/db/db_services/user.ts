@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { userTable } from "../schema";
 import { db } from "../index";
 import { eq } from "drizzle-orm";
@@ -21,7 +22,6 @@ export const addUser = async (user: {
       .returning({ userId: userTable.userId });
 
     if (result.length > 0) {
-      console.log("User added with userId:", result[0].userId);
       return result[0].userId;
     } else {
       throw new Error("Insert returned no data.");
@@ -49,3 +49,26 @@ export const deleteUser = async (userId: string) => {
     throw error;
   }
 };
+
+//test module
+// if (require.main === module) {
+//   const run = async () => {
+//     try {
+//       const newUserId = await addUser({
+//         firstName: "Ella",
+//         lastName: "Chops",
+//         age: 23,
+//         email: "ellaella@nine.com",
+//         phoneNumber: "+91 3424243223",
+//         gender: "female",
+//         role: "USER",
+//       });
+
+//       console.log("New user added with ID:", newUserId);
+//     } catch (err) {
+//       console.error("Error while testing addUser:", err);
+//     }
+//   };
+
+//   run();
+// }
