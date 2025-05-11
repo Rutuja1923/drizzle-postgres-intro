@@ -48,7 +48,7 @@ export const postTable = p.pgTable("posts", {
 
 export const categoriesTable = p.pgTable("categories", {
   categoryId: p.uuid("category_id").primaryKey().defaultRandom(),
-  categotyName: p.varchar("category_name", { length: 255 }).notNull(),
+  categoryName: p.varchar("category_name", { length: 255 }).notNull(),
 });
 
 export const postCategoryTable = p.pgTable(
