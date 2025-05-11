@@ -72,6 +72,44 @@ export const postCategoryTable = p.pgTable(
   (table) => [p.primaryKey({ columns: [table.postId, table.categoryId] })]
 );
 
+export const reviewTable = p.pgTable("reviews", {
+  reviewId: p.uuid("review_id").primaryKey().defaultRandom(),
+  rating: p.integer("rating").notNull(),
+  feedback: p.text("feedback"),
+  userId: p
+    .uuid("user_id")
+    .notNull()
+    .references(() => userTable.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  postId: p
+    .uuid("post_id")
+    .notNull()
+    .references(() => postTable.postId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+});
+
+export const likesTable = p.pgTable("likes", {
+  likeId: p.uuid("like_id").primaryKey().defaultRandom(),
+  userId: p
+    .uuid("user_id")
+    .notNull()
+    .references(() => userTable.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  postId: p
+    .uuid("post_id")
+    .notNull()
+    .references(() => postTable.postId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+});
+
 //DRIZZLE-LEVEL RELATIONSHIP MAPPING
 
 export const userTableRelations = relations(userTable, ({ one, many }) => ({
@@ -120,3 +158,25 @@ export const postCategoryTableRelations = relations(
     }),
   })
 );
+
+export const reviewRelations = relations(reviewTable, ({ one }) => ({
+  post: one(postTable, {
+    fields: [reviewTable.postId],
+    references: [postTable.postId],
+  }),
+  user: one(userTable, {
+    fields: [reviewTable.userId],
+    references: [userTable.userId],
+  }),
+}));
+
+export const likeRelations = relations(likesTable, ({ one }) => ({
+  post: one(postTable, {
+    fields: [likesTable.postId],
+    references: [postTable.postId],
+  }),
+  user: one(userTable, {
+    fields: [likesTable.userId],
+    references: [userTable.userId],
+  }),
+}));
