@@ -50,6 +50,11 @@ export const deleteUser = async (userId: string) => {
   }
 };
 
+export const getAllUserIds = async () => {
+  const result = await db.select({ id: userTable.userId }).from(userTable);
+  return result;
+};
+
 //test module
 // if (require.main === module) {
 //   const run = async () => {
